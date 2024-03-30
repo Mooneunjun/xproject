@@ -1,30 +1,19 @@
-import { useState } from "react";
-import FoodList from "./FoodList";
-import mockitems from "../mock.json";
+function isPalindrome(word) {
+  // 여기에 코드를 작성하세요
 
-function App() {
-  const [items, setItems] = useState[mockitems];
+  for (let i = 0; i <= Math.floor(word.length / 2); i++) {
+    let right = word[i];
+    let left = word[word.length - i - 1];
 
-  const [order, setOrder] = useState("createdAt");
-
-  const handleNewestClick = () => setOrder("createdAt");
-
-  const handleCalorieClick = () => setOrder("calorie");
-
-  const sortedItems = items.sort((a, b) => b[order] - a[order]);
-
-  const handleDelete = (id) => {
-    const nextItems = items.filter((item) => item.id !== id);
-    setItems(nextItems);
-  };
-
-  return (
-    <div>
-      <button onClick={handleNewestClick}>최신순</button>
-      <button onClick={handleCalorieClick}>칼로리순</button>
-      <FoodList items={sortedItems} onDelete={handleDelete} />
-    </div>
-  );
+    if (right !== left) return false;
+  }
+  return true;
 }
 
-export default App;
+// 테스트 코드
+console.log(isPalindrome("racecar"));
+console.log(isPalindrome("stars"));
+console.log(isPalindrome("기러기"));
+console.log(isPalindrome("123321"));
+console.log(isPalindrome("hello"));
+console.log(isPalindrome("kayak"));
