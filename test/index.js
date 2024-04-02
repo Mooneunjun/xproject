@@ -1,32 +1,13 @@
-// const myNumberTag = document.getElementById("myNumber");
-// const decreaseBtn = document.getElementById("decrease");
-// const increaseBtn = document.getElementById("increase");
+// DOM 프로퍼티
+const myTag = document.querySelector("#list-1");
 
-// let myNumber = +myNumberTag.textContent;
+// textContext
+console.log(myTag.textContent);
 
-// decreaseBtn.onclick = function () {
-//   if (myNumber > 0) {
-//     myNumber--;
-//     myNumberTag.textContent = myNumber;
-//   }
-// };
+// outerHTML
+console.log(myTag.outerHTML);
 
-// increaseBtn.onclick = function () {
-//   myNumber++;
-//   myNumberTag.textContent = myNumber;
-// };
+// innerHTML
+console.log(myTag.innerHTML);
 
-// const colorBtns = document.getElementsByClassName("color-btn");
-
-// for (let btn of colorBtns) {
-//   btn.onclick = function () {
-//     myNumberTag.style.color = btn.dataset.color;
-//     console.log(btn);
-//   };
-// }
-
-const gradeBtn = document.querySelector("#grade");
-
-gradeBtn.onclick = function () {
-  alert("정답입니다!👏🏻");
-};
+myTag.outerHTML = '<h1>hello</h1>'
