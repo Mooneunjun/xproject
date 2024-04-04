@@ -12,7 +12,9 @@ function App() {
   const [order, setOrder] = useState("createdAt");
   const [items, setItems] = useState([]);
   const [offset, setOffset] = useState(0);
-  const [hasNext, setHasNext] = useState(true);
+  const [hasNext, setHasNext] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState(null);
 
   // 리뷰 아이템을 정렬 순서에 따라 정렬합니다.
   const sortedItems = items.sort((a, b) => b[order] - a[order]);
@@ -30,7 +32,18 @@ function App() {
 
   // 리뷰를 로드하는 비동기 함수입니다. 정렬 순서, 오프셋, 제한을 옵션으로 받습니다.
   const handleLoad = async (options) => {
-    const { reviews, paging } = await getReviews(options);
+    let result;
+    try {
+      setIsLoading(true);
+      setLoadingError(null);
+      result = await getReviews(options);
+    } catch (error) {
+      setLoadingError(error);
+      return;
+    } finally {
+      setIsLoading(false);
+    }
+    const { reviews, paging } = result;
     // 첫 페이지 로드 시에는 아이템 목록을 대체하고, 그 외에는 아이템 목록에 추가합니다.
     if (options.offset === 0) {
       setItems(reviews);
@@ -60,7 +73,12 @@ function App() {
         <button onClick={handleBestClick}>베스트순</button>
       </div>
       <ReviewList items={sortedItems} onDelete={handleDelete} />
-      {hasNext && <button onClick={handleLoadMore}>더 보기</button>}
+      {hasNext && (
+        <button disabled={isLoading} onClick={handleLoadMore}>
+          더 보기
+        </button>
+      )}
+      {loadingError?.message && <span>{loadingError.message}</span>}
     </div>
   );
 }
