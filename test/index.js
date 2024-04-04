@@ -13,3 +13,6 @@ console.log(myTag.innerHTML);
 myTag.outerHTML = "<h1>hello</h1>";
 myTag.outerHTML = "<h1>hello</h1>";
 myTag.outerHTML = "<h1>hello</h1>";
+myTag.outerHTML = "<h1>hello</h1>";
+myTag.outerHTML = "<h1>hello</h1>";
+myTag.outerHTML = "<h1>hello</h1>";
