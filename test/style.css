@@ -1,36 +1,41 @@
-#myNumber {
-  font-size: 100px;
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.color-btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  cursor: pointer;
-  margin-top: 15px;
+.main {
+  width: 350px;
+  margin: 40px;
+  padding: 30px 0;
+  background-color: #fcfcfc;
+  box-shadow: -5px -5px 20px #ffffff, 5px 5px 20px #babecc;
+  border-radius: 8px;
+  text-align: center;
 }
 
-.red {
-  background-color: #ff0000;
+.title {
+  margin: 15px auto;
+  font-size: 30px;
+  font-weight: 600;
+  color: #9600ff;
 }
-.orange {
-  background-color: #ffa500;
+
+#to-do-list {
+  width: 280px;
+  margin: 0 auto 15px;
+  padding: 0;
+  list-style: none;
 }
-.yellow {
-  background-color: #ffff00;
-}
-.green {
-  background-color: #008000;
-}
-.blue {
-  background-color: #0000ff;
-}
-.indigo {
-  background-color: #4b0082;
-}
-.purple {
-  background-color: #800080;
-}
-.black {
-  background-color: #000000;
+
+#to-do-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 40px;
+  margin: 8px auto 15px;
+  border-bottom: 1px solid #9600ff;
 }
