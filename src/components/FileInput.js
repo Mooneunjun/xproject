@@ -44,7 +44,7 @@ function FileInput({ name, value, onChange }) {
       )}
       <input
         type="file"
-        accept="image/png, image/jpeg"
+        accept="image/png, image/jpeg, image/webp,"
         onChange={handleChange}
         ref={inputRef}
       />
@@ -55,7 +55,7 @@ function FileInput({ name, value, onChange }) {
         </button>
       )}
 
-      <style jsx>{`
+      <style jsx="true">{`
         .previewImg {
           max-width: 200px;
           max-height: 200px;
