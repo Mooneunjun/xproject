@@ -61,6 +61,10 @@ function App() {
     handleLoad({ order, offset, limit: LIMIT });
   };
 
+  const handleSubmitSuccess = (review) => {
+    setItems((prevItems) => [review, ...prevItems]);
+  };
+
   // 컴포넌트 마운트 및 정렬 순서 변경 시 리뷰를 로드합니다.
   useEffect(() => {
     handleLoad({ order, offset: 0, limit: LIMIT });
@@ -74,7 +78,7 @@ function App() {
         <button onClick={handleBestClick}>베스트순</button>
       </div>
 
-      <ReviewForm />
+      <ReviewForm onSubmitSuccess={handleSubmitSuccess} />
       <ReviewList items={sortedItems} onDelete={handleDelete} />
       {hasNext && (
         <button disabled={isLoading} onClick={handleLoadMore}>
