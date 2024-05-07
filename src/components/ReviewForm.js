@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { createReview } from "../api";
-import "./ReviewForm.css";
 import FileInput from "./FileInput";
 import RatingInput from "./RatingInput";
+import "./ReviewForm.css";
 
 const INITIAL_VALUES = {
   title: "",
@@ -11,10 +11,15 @@ const INITIAL_VALUES = {
   imgFile: null,
 };
 
-function ReviewForm({ onSubmitSuccess }) {
+function ReviewForm({
+  initialVlaues = INITIAL_VALUES,
+  initialPreview,
+  onSubmitSuccess,
+  onCancel,
+}) {
+  const [values, setValues] = useState(initialVlaues);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [SubmittingError, setSubmittingError] = useState(null);
-  const [values, setValues] = useState(INITIAL_VALUES);
 
   const handleChange = (name, value) => {
     if (name === "rating" && (value < 0 || value > 5)) {
@@ -60,30 +65,23 @@ function ReviewForm({ onSubmitSuccess }) {
       <FileInput
         name="imgFile"
         value={values.imgFile}
+        initialPreview={initialPreview}
         onChange={handleChange}
       />
-      <input
-        name="title"
-        type="text"
-        placeholder="title"
-        value={values.title}
-        onChange={handleInputChange}
-      />
+      <input name="title" value={values.title} onChange={handleInputChange} />
       <RatingInput
         name="rating"
-        placeholder="Rating"
         value={values.rating}
         onChange={handleChange}
       />
 
       <input
         name="content"
-        type="text"
-        placeholder="Content"
         value={values.content}
         onChange={handleInputChange}
       />
 
+      {onCancel && <button onClick={onCancel}>취소</button>}
       <button type="submit" disabled={isSubmitting}>
         Submit
       </button>
