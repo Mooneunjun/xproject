@@ -13,8 +13,8 @@ const INITIAL_VALUES = {
 function ReviewForm({
   initialVlaues = INITIAL_VALUES,
   initialPreview,
-  onSubmit,
   onCancel,
+  onSubmit,
   onSubmitSuccess,
 }) {
   const [values, setValues] = useState(initialVlaues);
