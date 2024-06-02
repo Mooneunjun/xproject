@@ -1,7 +1,7 @@
 // 필요한 모듈 및 컴포넌트를 임포트합니다.
 import ReviewList from "./ReviewList";
 import ReviewForm from "./ReviewForm";
-import { createReview, getReviews, updateReview } from "../api";
+import { createReview, getReviews, updateReview, deleteReview } from "../api";
 import { useEffect, useState } from "react";
 
 // 한 페이지당 로드할 리뷰의 개수를 상수로 정의합니다.
@@ -26,9 +26,11 @@ function App() {
   const handleBestClick = () => setOrder("rating");
 
   // 리뷰 삭제 핸들러입니다. id를 받아 해당 리뷰를 목록에서 제거합니다.
-  const handleDelete = (id) => {
-    const nextItems = items.filter((item) => item.id !== id);
-    setItems(nextItems);
+  const handleDelete = async (id) => {
+    const result = await deleteReview(id);
+    if (!result) return;
+
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
   // 리뷰를 로드하는 비동기 함수입니다. 정렬 순서, 오프셋, 제한을 옵션으로 받습니다.
