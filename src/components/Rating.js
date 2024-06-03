@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./Rating.css";
 
 const RATINS = [1, 2, 3, 4, 5];

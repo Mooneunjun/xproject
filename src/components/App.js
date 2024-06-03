@@ -37,8 +37,8 @@ function App() {
   const handleLoad = async (options) => {
     let result;
     try {
-      setIsLoading(true);
       setLoadingError(null);
+      setIsLoading(true);
       result = await getReviews(options);
     } catch (error) {
       setLoadingError(error);
