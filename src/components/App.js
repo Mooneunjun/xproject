@@ -3,6 +3,7 @@ import ReviewList from "./ReviewList";
 import ReviewForm from "./ReviewForm";
 import { createReview, getReviews, updateReview, deleteReview } from "../api";
 import { useEffect, useState } from "react";
+import useAsync from "./hooks/useAsync";
 
 // 한 페이지당 로드할 리뷰의 개수를 상수로 정의합니다.
 const LIMIT = 6;
@@ -11,11 +12,10 @@ const LIMIT = 6;
 function App() {
   // 정렬 순서, 리뷰 아이템 목록, 현재 오프셋, 다음 페이지 존재 여부를 state로 관리합니다.
   const [order, setOrder] = useState("createdAt");
-  const [items, setItems] = useState([]);
   const [offset, setOffset] = useState(0);
   const [hasNext, setHasNext] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadingError, setLoadingError] = useState(null);
+  const [isLoading, loadingError, getReviewsAsync] = useAsync(getReviews);
+  const [items, setItems] = useState([]);
 
   // 리뷰 아이템을 정렬 순서에 따라 정렬합니다.
   const sortedItems = items.sort((a, b) => b[order] - a[order]);
@@ -35,17 +35,9 @@ function App() {
 
   // 리뷰를 로드하는 비동기 함수입니다. 정렬 순서, 오프셋, 제한을 옵션으로 받습니다.
   const handleLoad = async (options) => {
-    let result;
-    try {
-      setLoadingError(null);
-      setIsLoading(true);
-      result = await getReviews(options);
-    } catch (error) {
-      setLoadingError(error);
-      return;
-    } finally {
-      setIsLoading(false);
-    }
+    const result = await getReviewsAsync(options);
+    if (!result) return;
+
     const { reviews, paging } = result;
     // 첫 페이지 로드 시에는 아이템 목록을 대체하고, 그 외에는 아이템 목록에 추가합니다.
     if (options.offset === 0) {
