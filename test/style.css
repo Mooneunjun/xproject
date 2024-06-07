@@ -1,41 +1,18 @@
-body {
-  margin: 0;
-  padding: 0;
+.rotate-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
-}
-
-.main {
-  width: 350px;
-  margin: 40px;
-  padding: 30px 0;
-  background-color: #fcfcfc;
-  box-shadow: -5px -5px 20px #ffffff, 5px 5px 20px #babecc;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.title {
-  margin: 15px auto;
-  font-size: 30px;
-  font-weight: 600;
-  color: #9600ff;
-}
-
-#to-do-list {
-  width: 280px;
-  margin: 0 auto 15px;
-  padding: 0;
-  list-style: none;
-}
-
-#to-do-list li {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 90%;
-  height: 40px;
-  margin: 8px auto 15px;
-  border-bottom: 1px solid #9600ff;
+  color: white;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+.button-container {
+  position: absolute;
+  display: none;
+  flex-direction: column;
 }

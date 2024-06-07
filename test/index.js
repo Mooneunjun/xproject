@@ -1,56 +1,56 @@
-import { useState } from "react";
+document.addEventListener("mouseover", function (event) {
+  if (event.target.tagName === "IMG") {
+    let img = event.target;
+    let container = img.parentNode.querySelector(".button-container");
 
-function FoodForm() {
-  const [values, setValues] = useState({
-    title: "",
-    calorie: 0,
-    content: "",
-  });
+    if (!container) {
+      container = document.createElement("div");
+      container.className = "button-container";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (values.title.trim() === "") {
-      alert("제목을 입력해주세요.");
-      return;
-    }
-    if (values.calorie <= 0) {
-      alert("칼로리는 0보다 작을 수 없습니다.");
-      return;
-    }
+      let rotateLeft = document.createElement("div");
+      rotateLeft.className = "rotate-button";
+      rotateLeft.innerHTML = "↺";
+      rotateLeft.addEventListener("click", function () {
+        img.style.transform = `rotate(${getCurrentRotation(img) - 90}deg)`;
+      });
 
-    if (values.content.trim() === "") {
-      alert("내용을 입력해주세요.");
-      return;
-    }
+      let rotateRight = document.createElement("div");
+      rotateRight.className = "rotate-button";
+      rotateRight.innerHTML = "↻";
+      rotateRight.addEventListener("click", function () {
+        img.style.transform = `rotate(${getCurrentRotation(img) + 90}deg)`;
+      });
 
-    console.log(values);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "calorie" && value < 0) {
-      return;
+      container.appendChild(rotateLeft);
+      container.appendChild(rotateRight);
+      img.parentNode.style.position = "relative";
+      img.parentNode.appendChild(container);
     }
 
-    setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
+    let rect = img.getBoundingClientRect();
+    container.style.top = `${img.offsetTop + img.clientHeight - 60}px`;
+    container.style.left = `${img.offsetLeft + img.clientWidth - 40}px`;
+    container.style.display = "flex";
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <input name="title" value={values.title} onChange={handleChange} />
-      <input
-        type="number"
-        name="calorie"
-        value={values.calorie}
-        onChange={handleChange}
-      />
-      <input name="content" value={values.content} onChange={handleChange} />
-      <button type="submit">확인</button>
-    </form>
-  );
+    container.addEventListener("mouseleave", function () {
+      container.style.display = "none";
+    });
+
+    img.addEventListener("mouseleave", function () {
+      if (!container.matches(":hover")) {
+        container.style.display = "none";
+      }
+    });
+  }
+});
+
+function getCurrentRotation(img) {
+  const st = window.getComputedStyle(img, null);
+  const tr = st.getPropertyValue("transform");
+  if (tr === "none") return 0;
+  const values = tr.split("(")[1].split(")")[0].split(",");
+  const a = values[0];
+  const b = values[1];
+  const angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+  return angle < 0 ? angle + 360 : angle;
 }
-
-export default FoodForm;
